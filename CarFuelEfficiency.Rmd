@@ -11,7 +11,7 @@ This is a problem in modeling/prediction.
 The idea is this:  Fuel efficiency from 2010 and 2011 passenger cars and light trucks is provied.  Using data from 2010, find the best model to predict fuel effiency; fit the model using data from 2010, and evaluate model performance using 2011 data.  
 
 Questions:  
-1. Is there evidence of an improvemet in fuel efficiency from 2010 t 2011?  
+1. Is there evidence of an improvement in fuel efficiency from 2010 to 2011?  
 2. What variables are most significant predictors of fuel efficienty?  
 3. Suggest ways in which fuel efficienty could be improved in future years.  
 
@@ -19,6 +19,8 @@ Questions:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(AppliedPredictiveModeling)
+library(dplyr)
+
 ```
 
 data set: fuel economy from US Gov't website
@@ -57,6 +59,32 @@ between = list(x = 1.2))
 ```{r}
 names(cars2010a)
 ```
+try transmission = AV, AM6 and AM7
+```{r}
+testTranny = filter(cars2010a, Transmission %in% c('AV','AM7'))
+
+trannymodel = glm(FE ~ Transmission, data = testTranny)
+summary(trannymodel)
+
+print(mean(testTranny$FE))
+
+```
+Try adding air asperation method to see what it does..
+```{r}
+#levels(cars2010a$AirAspirationMethod)
+trannyValveModel = glm(FE ~ Transmission + ExhaustValvesPerCyl, data = testTranny)
+summary(trannyValveModel)
+```
+```{r}
+for (i in 1:length((cars2010a$IntakeValvePerCyl))){
+  if(cars2010a$IntakeValvePerCyl[i] == 0) print('found one')
+}
+
+```
+
+
+
+
 
 
 ### regession fit
