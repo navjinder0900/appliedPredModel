@@ -53,7 +53,16 @@ ylab = "Fuel Efficiency (MPG)",
 between = list(x = 1.2))
 
 ```
+## DIFFERENCE IN MEAN FUEL EFFICIENCY 2010 TO 2011
+$H_O$: no difference between FE in 2010 and 2011
+$H_A$: there is a difference in FE for years 2010 and 2011
+we'll use a t-test for this inference 
+```{r}
+t.test(cars2010a$FE, cars2011a$FE)
 
+```
+question #1
+no evidence of any improvement/difference in mean FE between 2010 and 2011.
 ### variables in the data set:
 
 ```{r}
